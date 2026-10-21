@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="IBFA 국제바레플로우협회 홈페이지 디자인 시안 (브마드 제작)">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IBFA 국제바레플로우협회 · 예시 C (Nova Brand)</title>
+<style>
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard.css');
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600;700&display=swap');
+
+:root{
+  --cream:#F6F2EA;--cream2:#EFE9DD;--ink:#1A1A1A;
+  --yellow:#F3CA12;--yellow-d:#DBB40C;--line:#E6DFD1;--muted:#7a7568;--photo-bg:#e7ebee;
+  --disp:'Jost','Century Gothic',sans-serif;
+  --sans:'Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;
+  --serif:Georgia,'Times New Roman',serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);color:var(--ink);background:var(--cream);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4,.kr{word-break:keep-all}
+.wrap{max-width:1200px;margin:0 auto;padding:0 32px}
+.disp{font-family:var(--disp)}
+.eyebrow{font-family:var(--disp);font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--ink);font-weight:600;display:inline-flex;align-items:center;gap:10px}
+.eyebrow::before{content:"";width:22px;height:3px;background:var(--yellow);display:inline-block;border-radius:2px}
+.hl{position:relative;display:inline-block;z-index:0}
+.hl::after{content:"";position:absolute;left:-2px;right:-2px;bottom:.08em;height:.42em;background:var(--yellow);z-index:-1;border-radius:3px;transform:scaleX(0);transform-origin:left;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.hl.lit::after{transform:scaleX(1)}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:15px 30px;font-size:14px;font-weight:700;transition:.25s;cursor:pointer;border:2px solid transparent;border-radius:40px}
+.btn-y{background:var(--yellow);color:var(--ink)}
+.btn-y:hover{background:var(--yellow-d);transform:translateY(-2px);box-shadow:0 10px 24px -8px rgba(219,180,12,.6)}
+.btn-dark{background:var(--ink);color:#fff}.btn-dark:hover{transform:translateY(-2px)}
+.btn-ol{background:transparent;color:var(--ink);border-color:var(--ink)}
+.btn-ol:hover{background:var(--ink);color:#fff}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.reveal.in{opacity:1;transform:none}
+.reveal.d1{transition-delay:.08s}.reveal.d2{transition-delay:.16s}.reveal.d3{transition-delay:.24s}.reveal.d4{transition-delay:.32s}
+
+/* HEADER */
+header{position:fixed;top:0;left:0;right:0;z-index:100;transition:.3s;padding:20px 0}
+header.scrolled{background:rgba(246,242,234,.94);backdrop-filter:blur(10px);box-shadow:0 1px 0 var(--line);padding:12px 0}
+.nav{display:flex;align-items:center;justify-content:space-between}
+.logo{font-family:var(--disp);font-size:24px;font-weight:600;letter-spacing:.12em;color:var(--ink)}
+.logo small{display:block;font-family:var(--sans);font-size:9px;letter-spacing:.18em;color:var(--muted);font-weight:600;margin-top:1px}
+.menu{display:flex;gap:24px;font-family:var(--disp);font-size:13px;font-weight:500;letter-spacing:.07em}
+.menu a{position:relative;padding:4px 0}
+.menu a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:3px;background:var(--yellow);transition:.25s;border-radius:2px}
+.menu a:hover::after{width:100%}
+.nav-right{display:flex;align-items:center;gap:16px}
+.lang{display:flex;align-items:center;border:1px solid var(--line);border-radius:30px;overflow:hidden;font-family:var(--disp);font-size:11px}
+.lang span{padding:5px 10px;cursor:pointer;color:var(--muted)}
+.lang span.on{background:var(--ink);color:#fff}
+.burger{display:none;flex-direction:column;gap:5px;cursor:pointer}
+.burger span{width:24px;height:2px;background:var(--ink)}
+
+/* HERO — 1장 + 모션 */
+.hero{position:relative;padding:150px 0 90px;overflow:hidden}
+.hero-blob{position:absolute;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(243,202,18,.5),rgba(243,202,18,0) 68%);top:-80px;right:-120px;z-index:0;animation:float 10s ease-in-out infinite}
+.hero-blob.two{width:360px;height:360px;background:radial-gradient(circle,rgba(243,202,18,.3),transparent 68%);bottom:-120px;left:-80px;top:auto;right:auto;animation-delay:-4s}
+@keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(-20px,28px)}}
+.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+.hero .eyebrow{margin-bottom:22px}
+.hero h1{font-size:clamp(40px,5.6vw,74px);line-height:1.04;font-weight:800;letter-spacing:-.02em;text-wrap:balance}
+.hero h1 .en{font-family:var(--disp);font-weight:500;font-size:.9em;display:block;letter-spacing:0;margin-top:4px}
+.hero .sub{margin-top:22px;font-size:clamp(15px,1.8vw,18px);font-weight:600;color:var(--ink)}
+.hero .body{margin-top:12px;font-size:15px;color:var(--muted);max-width:500px}
+.hero-cta{margin-top:34px;display:flex;flex-wrap:wrap;gap:12px}
+.hero-ph{position:relative}
+.hero-ph .frame{position:relative;border-radius:200px 200px 24px 24px;overflow:hidden;aspect-ratio:2/3;background:var(--photo-bg);box-shadow:0 30px 70px -40px rgba(26,26,26,.5);animation:floatph 6s ease-in-out infinite}
+@keyframes floatph{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.hero-ph .frame img{width:100%;height:100%;object-fit:cover;object-position:center top}
+.hero-ph .chip{position:absolute;bottom:26px;left:-14px;background:#fff;border-radius:40px;padding:12px 22px;font-family:var(--disp);font-size:13px;font-weight:600;box-shadow:0 12px 30px -12px rgba(26,26,26,.35);display:flex;align-items:center;gap:8px;animation:floatchip 5s ease-in-out .5s infinite}
+@keyframes floatchip{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.hero-ph .chip i{width:9px;height:9px;border-radius:50%;background:var(--yellow)}
+.hero-ph .ring{position:absolute;width:120px;height:120px;border:3px solid var(--yellow);border-radius:50%;top:-18px;right:-10px;z-index:-1;animation:spin 16s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* MARQUEE */
+.strip{background:var(--ink);overflow:hidden}
+.marq{display:flex;white-space:nowrap;animation:marq 24s linear infinite}
+.marq span{font-family:var(--disp);font-size:14px;letter-spacing:.12em;padding:18px 30px;color:#fff}
+.marq span b{color:var(--yellow)}
+@keyframes marq{to{transform:translateX(-50%)}}
+
+/* SECTION */
+section.block{padding:clamp(70px,10vw,120px) 0}
+.block.soft{background:var(--cream2)}
+.block.dark{background:var(--ink);color:#fff}
+.sec-head{text-align:center;max-width:700px;margin:0 auto 54px}
+.sec-head.left{text-align:left;margin-left:0}
+.sec-head .eyebrow{justify-content:center;margin-bottom:16px}
+.sec-head.left .eyebrow{justify-content:flex-start}
+.sec-head h2{font-size:clamp(28px,4vw,48px);font-weight:800;line-height:1.14;letter-spacing:-.01em;text-wrap:balance}
+.sec-head .en{display:block;font-family:var(--disp);font-weight:500;font-size:.42em;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-top:10px}
+.sec-head p{margin-top:16px;color:var(--muted);font-size:15px}
+.block.dark .sec-head p{color:rgba(255,255,255,.7)}
+.btnrow{margin-top:30px;display:flex;flex-wrap:wrap;gap:12px}
+.conf{color:#b8541e;font-size:11px;font-weight:600}
+
+/* VALUE */
+.vcards{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.vcard{background:var(--cream);border:1px solid var(--line);border-radius:24px;padding:38px 30px;text-align:center;transition:.3s}
+.block.soft .vcard{background:#fff}
+.vcard:hover{transform:translateY(-6px);box-shadow:0 26px 50px -30px rgba(26,26,26,.3)}
+.vcard .ic{width:60px;height:60px;border-radius:50%;background:var(--yellow);display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-weight:600;font-size:22px;margin:0 auto 16px}
+.vcard h3{font-size:20px;font-weight:800}
+.vcard .en{font-family:var(--disp);color:var(--muted);font-size:13px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:10px}
+.vcard p{font-size:14px;color:var(--muted)}
+.msg{max-width:760px;margin:46px auto 0;text-align:center;padding:30px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.msg q{font-family:var(--serif);font-style:italic;font-size:clamp(20px,2.6vw,28px);line-height:1.5;display:block}
+.msg cite{display:block;margin-top:14px;font-size:13px;color:var(--muted);font-style:normal}
+
+/* STATS */
+.statrow{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px}
+.stat{text-align:center;background:var(--cream);border-radius:20px;padding:26px 16px;border:1px solid var(--line)}
+.block.soft .stat{background:#fff}
+.stat .n{font-family:var(--disp);font-size:clamp(28px,3.4vw,42px);font-weight:600;line-height:1}
+.stat .n .u{color:var(--yellow-d);font-size:.5em}
+.stat .l{font-size:12px;letter-spacing:.08em;color:var(--muted);margin-top:8px;font-family:var(--disp);text-transform:uppercase}
+
+/* TEAM */
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.tcard{background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px 24px;transition:.3s}
+.tcard:hover{transform:translateY(-5px);box-shadow:0 24px 44px -30px rgba(26,26,26,.3)}
+.tcard .role{font-family:var(--disp);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--yellow-d);font-weight:600}
+.tcard h4{font-size:19px;font-weight:800;margin:4px 0 2px}
+.tcard .yr{font-size:12px;color:var(--muted);font-family:var(--disp);margin-bottom:12px}
+.tcard ul{list-style:none;font-size:12.5px;color:var(--muted);line-height:1.8}
+.tcard ul li{padding-left:12px;position:relative}
+.tcard ul li::before{content:"·";position:absolute;left:2px;color:var(--yellow-d)}
+
+/* LEVELS */
+.levels{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.lvl{background:var(--cream);border:1px solid var(--line);border-radius:24px;overflow:hidden;transition:.3s}
+.block.soft .lvl{background:#fff}
+.lvl:hover{transform:translateY(-6px);box-shadow:0 26px 50px -30px rgba(26,26,26,.3)}
+.lvl-img{height:300px;position:relative;overflow:hidden;background:var(--photo-bg);display:flex;align-items:center;justify-content:center}
+.lvl-img img{width:100%;height:100%;object-fit:contain;transition:.6s}
+.lvl:hover .lvl-img img{transform:scale(1.04)}
+.lvl-img .tier{position:absolute;top:16px;left:16px;background:#fff;color:var(--ink);padding:6px 16px;border-radius:30px;font-family:var(--disp);font-size:12px;font-weight:600}
+.lvl-img .tier.y{background:var(--yellow)}
+.lvl-body{padding:26px 26px 28px}
+.lvl-body h3{font-family:var(--disp);font-size:24px;font-weight:600;margin-bottom:8px}
+.lvl-body p{font-size:14px;color:var(--muted);min-height:66px}
+.lvl-spec{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);margin-top:14px;padding-top:16px;text-align:center}
+.lvl-spec div{font-size:11px;color:var(--muted);border-right:1px solid var(--line)}
+.lvl-spec div:last-child{border-right:0}
+.lvl-spec b{display:block;font-size:13px;color:var(--ink);font-family:var(--disp);margin-bottom:2px}
+.diff{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px}
+.diff .col{border:1px solid var(--line);border-radius:18px;padding:26px 28px;background:var(--cream)}
+.block.soft .diff .col{background:#fff}
+.diff .col.us{background:var(--ink);color:#fff;border-color:var(--ink)}
+.diff h5{font-family:var(--disp);font-size:12px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;color:var(--muted)}
+.diff .col.us h5{color:var(--yellow)}
+.diff li{list-style:none;font-size:14px;padding:7px 0 7px 18px;position:relative}
+.diff li::before{content:"—";position:absolute;left:0;opacity:.5}
+.steps{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:40px;flex-wrap:wrap}
+.step{background:var(--cream);border:1px solid var(--line);border-radius:16px;padding:14px 24px;text-align:center;min-width:88px}
+.block.soft .step{background:#fff}
+.step b{display:block;font-family:var(--disp);color:var(--yellow-d);font-size:18px}
+.step span{font-size:12px;color:var(--muted)}
+.step.on{background:var(--ink);border-color:var(--ink)}.step.on b{color:var(--yellow)}.step.on span{color:#fff}
+.steps .ar{color:var(--yellow-d);font-family:var(--disp)}
+
+/* CERT dark */
+.cert .split{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(36px,5vw,60px);align-items:center}
+.cert-img{position:relative}
+.cert-img img{width:100%;aspect-ratio:2/3;object-fit:cover;object-position:center;border-radius:20px;background:var(--photo-bg)}
+.cert-img .tagy{position:absolute;top:18px;left:18px;background:var(--yellow);color:var(--ink);padding:7px 16px;border-radius:30px;font-family:var(--disp);font-size:11px;font-weight:600;letter-spacing:.12em}
+.cert h2{font-size:clamp(28px,3.6vw,44px);font-weight:800;line-height:1.14;margin:16px 0}
+.cert .lead{color:rgba(255,255,255,.76);font-size:15px}
+.cert .lead b{color:var(--yellow)}
+.perks{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:26px 0}
+.perk{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:20px 16px;text-align:center;transition:.25s}
+.perk:hover{background:rgba(243,202,18,.12);border-color:var(--yellow)}
+.perk .pi{width:40px;height:40px;border-radius:50%;background:var(--yellow);color:var(--ink);display:flex;align-items:center;justify-content:center;font-family:var(--disp);font-weight:600;margin:0 auto 10px}
+.perk h5{font-size:14px;margin-bottom:4px}
+.perk p{font-size:12px;color:rgba(255,255,255,.62)}
+.pricebox{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:4px 0 22px}
+.price{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:20px 22px}
+.price .t{font-size:13px}.price .t span{font-family:var(--disp);font-size:11px;color:var(--yellow);display:block;letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.price .v{font-family:var(--disp);font-size:22px;font-weight:600;margin-top:8px}
+.price .v small{font-size:12px;color:rgba(255,255,255,.6);font-weight:400}
+
+/* VERIFY */
+.verify-wrap{background:#fff;border:1px solid var(--line);border-radius:28px;padding:40px;max-width:980px;margin:0 auto;box-shadow:0 30px 60px -40px rgba(26,26,26,.3)}
+.vgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.vgrid.r2{grid-template-columns:1fr 1fr auto;margin-top:16px;align-items:end}
+.verify-wrap label{font-family:var(--disp);font-size:10px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;display:block;margin-bottom:6px}
+.verify-wrap input,.verify-wrap select{width:100%;background:var(--cream);border:1px solid var(--line);padding:11px 12px;font-size:13px;font-family:var(--sans);border-radius:10px}
+.verify-wrap input:focus,.verify-wrap select:focus{outline:0;border-color:var(--yellow)}
+.vi-note{text-align:center;margin-top:22px;font-size:12px;color:var(--muted)}
+
+/* PARTNERS */
+.pmarquee{overflow:hidden;background:#fff;border-radius:20px;border:1px solid var(--line);margin-bottom:34px}
+.pmarquee-track{display:flex;gap:60px;padding:24px 0;white-space:nowrap;animation:marq 20s linear infinite;font-family:var(--disp);font-size:24px;font-weight:600;color:#cfc6b2}
+.pgrid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(30px,4vw,48px)}
+.partner-card{background:var(--cream);border:1px solid var(--line);border-radius:22px;padding:30px}
+.block.soft .partner-card{background:#fff}
+.partner-card .flag{font-family:var(--disp);font-size:12px;letter-spacing:.12em;color:var(--yellow-d);text-transform:uppercase;font-weight:600}
+.partner-card h4{font-size:20px;font-weight:800;margin:6px 0 2px}
+.partner-card .en{font-family:var(--disp);font-size:13px;color:var(--muted);margin-bottom:12px}
+.partner-card p{font-size:13px;color:var(--muted)}
+.news-list{display:flex;flex-direction:column;gap:10px}
+.nitem{display:grid;grid-template-columns:auto 1fr auto;gap:18px;padding:18px 22px;background:var(--cream);border:1px solid var(--line);border-radius:14px;align-items:center;transition:.2s}
+.block.soft .nitem{background:#fff}
+.nitem:hover{border-color:var(--yellow);transform:translateX(4px)}
+.nitem .cat{font-family:var(--disp);font-size:11px;color:var(--ink);background:var(--yellow);padding:4px 12px;border-radius:20px;font-weight:600}
+.nitem .tt{font-size:14px;font-weight:500}
+.nitem .dt{font-family:var(--disp);font-size:12px;color:var(--muted)}
+
+/* STUDIOS */
+.stcards{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.stcard{background:var(--cream);border:1px solid var(--line);border-radius:24px;overflow:hidden}
+.block.soft .stcard{background:#fff}
+.stcard .im{height:300px;overflow:hidden;background:var(--photo-bg);display:flex;align-items:center;justify-content:center}
+.stcard .im img{width:100%;height:100%;object-fit:contain;transition:.6s}
+.stcard:hover .im img{transform:scale(1.06)}
+.stcard .bd{padding:26px 28px 30px}
+.stcard .loc{font-family:var(--disp);color:var(--yellow-d);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.stcard h4{font-size:20px;font-weight:800;margin:4px 0 14px}
+.stcard .d{display:grid;grid-template-columns:62px 1fr;gap:6px 12px;font-size:13px;color:var(--muted)}
+.stcard .d b{color:var(--ink);font-weight:600;font-size:12px;font-family:var(--disp)}
+.stcard .note{margin-top:12px;font-size:12px;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px}
+.progs{display:flex;flex-wrap:wrap;gap:8px;margin-top:34px;justify-content:center}
+.progs span{background:var(--cream);border:1px solid var(--line);padding:9px 18px;font-size:13px;border-radius:30px}
+.progs span b{font-family:var(--disp);color:var(--yellow-d);font-size:11px;letter-spacing:.08em;margin-right:8px;text-transform:uppercase}
+
+/* QUALIFICATION */
+.qnotice{background:#fff;border:1px solid var(--line);border-radius:20px;border-left:5px solid var(--yellow);padding:30px 34px;max-width:980px;margin:0 auto}
+.qnotice h4{font-family:var(--disp);font-size:13px;letter-spacing:.1em;margin-bottom:16px;text-transform:uppercase}
+.qnotice .qrow{display:grid;grid-template-columns:200px 1fr;gap:16px;padding:10px 0;border-bottom:1px dashed var(--line);font-size:13px}
+.qnotice .qk{color:var(--muted)}
+.qnotice .foot{margin-top:14px;font-size:12px;color:var(--muted)}
+
+/* CONTACT */
+.contact .split{display:grid;grid-template-columns:1fr 1fr;gap:clamp(36px,5vw,56px)}
+.cinfo .row{display:grid;grid-template-columns:96px 1fr;gap:14px;padding:16px 0;border-bottom:1px solid var(--line);font-size:14px}
+.cinfo .row .k{font-family:var(--disp);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--yellow-d)}
+.cform{background:#fff;border:1px solid var(--line);border-radius:24px;padding:34px}
+.cform label{font-size:12px;color:var(--muted);display:block;margin:14px 0 6px}
+.cform input,.cform select,.cform textarea{width:100%;border:1px solid var(--line);padding:12px 14px;font-family:var(--sans);font-size:14px;border-radius:12px;background:var(--cream)}
+.cform textarea{min-height:84px;resize:vertical}
+.cform .chk{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--muted);margin-top:14px}
+
+/* FOOTER */
+footer{background:var(--ink);color:rgba(255,255,255,.64);padding:70px 0 36px}
+.fgrid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:34px;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.12)}
+.flogo{font-family:var(--disp);font-size:28px;color:#fff;font-weight:600;letter-spacing:.1em}
+.flogo small{display:block;font-size:9px;letter-spacing:.2em;color:rgba(255,255,255,.5);margin-top:2px}
+.fcol h5{font-family:var(--disp);color:#fff;font-size:12px;letter-spacing:.14em;margin-bottom:14px;text-transform:uppercase}
+.fcol a{display:block;font-size:13px;margin-bottom:9px;color:rgba(255,255,255,.6)}
+.fbiz{padding-top:24px;font-size:12px;color:rgba(255,255,255,.45);line-height:1.9}
+.conf-inline{color:#f0cf4e}
+
+.ctabar{position:fixed;left:0;right:0;bottom:0;z-index:95;background:var(--ink);display:grid;grid-template-columns:1fr 1fr 1fr;transform:translateY(100%);transition:.35s}
+.ctabar.show{transform:translateY(0)}
+.ctabar a{padding:15px;text-align:center;color:#fff;font-size:13px;font-weight:700;border-right:1px solid rgba(255,255,255,.12)}
+.ctabar a:last-child{border-right:0}
+.ctabar a.y{background:var(--yellow);color:var(--ink)}.ctabar a.kakao{background:#FEE500;color:#3a1d1d}
+.demo-ribbon{position:fixed;top:0;right:0;z-index:200;background:var(--yellow);color:#1a1a1a;font-family:var(--disp);font-size:11px;font-weight:600;letter-spacing:.06em;padding:6px 14px}
+
+@media(prefers-reduced-motion:reduce){*{animation:none!important}.reveal{opacity:1;transform:none;transition:none}.hl::after{transform:scaleX(1)}}
+@media(max-width:1040px){.team-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:980px){
+  .hero-grid{grid-template-columns:1fr;gap:40px}
+  .hero-ph{max-width:360px;margin:0 auto;order:-1}
+  .vcards,.levels,.stcards,.pgrid,.diff{grid-template-columns:1fr}
+  .cert .split,.contact .split{grid-template-columns:1fr}
+  .vgrid{grid-template-columns:1fr 1fr}.vgrid.r2{grid-template-columns:1fr}
+  .statrow{grid-template-columns:1fr 1fr}
+  .perks,.pricebox{grid-template-columns:1fr}
+  .menu,.lang{display:none}.burger{display:flex}
+  .fgrid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:560px){
+  .wrap{padding:0 20px}.hero{padding-top:120px}
+  .sec-head h2{font-size:30px}.team-grid,.vgrid{grid-template-columns:1fr}
+  .ctabar{grid-template-columns:1fr 1fr 1fr}
+  .qnotice .qrow{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="demo-ribbon">예시 C · Nova Brand</div>
+
+<header id="hdr">
+  <div class="wrap nav">
+    <div class="logo">IBFA<small>BARRE FLOW ASSOCIATION</small></div>
+    <nav class="menu">
+      <a href="#about">ABOUT</a><a href="#team">TEAM</a><a href="#curriculum">CURRICULUM</a><a href="#certification">CERTIFICATION</a><a href="#studios">STUDIOS</a><a href="#partners">PARTNERS</a><a href="#verify">VERIFY</a><a href="#contact">CONTACT</a>
+    </nav>
+    <div class="nav-right">
+      <div class="lang"><span class="on">KO</span><span>EN</span><span>中</span></div>
+      <a href="#verify" class="btn btn-y" style="padding:9px 18px;font-size:12px">자격증 조회</a>
+      <div class="burger"><span></span><span></span><span></span></div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO : 메인/ABOUT (문서 1페이지) · 사진 1장 + 모션 -->
+<section class="hero">
+  <div class="hero-blob"></div><div class="hero-blob two"></div>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <span class="eyebrow reveal in">International Barre Flow Association</span>
+        <h1 class="reveal in d1">바레의 <span class="hl">새로운 기준</span><span class="en">Precision · Depth · Flow</span></h1>
+        <p class="sub kr reveal in d2">국제바레플로우협회 — 움직임의 흐름 속에서 발견하는 새로운 나, IBFA가 함께합니다.</p>
+        <p class="body kr reveal in d3">발레의 우아함과 피트니스·필라테스의 정교함을 결합한 독창적인 바레 커리큘럼을 연구하고, 동작의 정확도와 깊이, 몰입감을 바탕으로 전문성을 갖춘 바레 마스터를 양성합니다.</p>
+        <div class="hero-cta reveal in d4">
+          <a href="#certification" class="btn btn-y">자격과정 문의하기</a>
+          <a href="#curriculum" class="btn btn-ol">교육과정 보러가기</a>
+          <a href="#verify" class="btn btn-ol">자격증 조회하기</a>
+        </div>
+      </div>
+      <div class="hero-ph reveal in d2">
+        <span class="ring"></span>
+        <div class="frame"><img data-img="ball-pose" alt="IBFA 바레 지도자"></div>
+        <div class="chip"><i></i>한국의 바레 자격증 협회</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="strip"><div class="marq">
+  <span><b>Precision</b> 정확도</span><span><b>Depth</b> 깊이</span><span><b>Flow</b> 몰입</span><span>NOVA BARRE · OFFICIAL STUDIO</span>
+  <span><b>Precision</b> 정확도</span><span><b>Depth</b> 깊이</span><span><b>Flow</b> 몰입</span><span>NOVA BARRE · OFFICIAL STUDIO</span>
+</div></div>
+
+<!-- ABOUT : 협회 소개 (문서 2페이지) -->
+<section class="block" id="about">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">About the Association</span>
+      <h2>Precision, Depth, & Flow —<br>바레의 정수를 전하는 <span class="hl">IBFA</span></h2>
+      <p class="kr">움직임의 정확도와 깊이, 그리고 몰입감을 선사하는 국제바레플로우협회입니다. 단순한 움직임을 넘어, 발레의 우아함과 피트니스·필라테스의 정교함을 결합한 바레 프로그램을 연구하고 정립합니다. 체계적인 지도자 양성 과정을 통해 한국 및 글로벌 바레 필드에서 경쟁력을 갖춘 전문 강사를 배출합니다.</p>
+    </div>
+    <div class="vcards">
+      <div class="vcard reveal"><div class="ic">01</div><h3>정확도</h3><div class="en">Precision</div><p class="kr">속도에 치우치지 않고 정교한 근육의 쓰임과 호흡에 집중합니다.</p></div>
+      <div class="vcard reveal d1"><div class="ic">02</div><h3>깊이</h3><div class="en">Depth</div><p class="kr">바디 라인과 중심을 바르게 세우는 깊이 있는 움직임을 교육합니다.</p></div>
+      <div class="vcard reveal d2"><div class="ic">03</div><h3>몰입</h3><div class="en">Flow</div><p class="kr">동작과 동작을 자연스럽게 연결하는 흐름과 몰입을 완성합니다.</p></div>
+    </div>
+    <div class="msg reveal">
+      <q>“멋진 동작보다 중요한 건 당신의 평범한 일상입니다.”</q>
+      <cite>전미나 — 국제바레플로우협회(IBFA) 협회장 · 노바바레 대표</cite>
+    </div>
+    <div class="statrow">
+      <div class="stat reveal"><div class="n">3<span class="u">단계</span></div><div class="l">LEVEL 교육과정</div></div>
+      <div class="stat reveal d1"><div class="n">2<span class="u">개</span></div><div class="l">공식 스튜디오</div></div>
+      <div class="stat reveal d2"><div class="n">1<span class="u">개국</span></div><div class="l">글로벌 파트너</div></div>
+      <div class="stat reveal d3"><div class="n"><span class="conf" style="font-size:15px">[확인 필요]</span></div><div class="l">민간자격 등록</div></div>
+    </div>
+    <div class="btnrow reveal" style="justify-content:center"><a href="#curriculum" class="btn btn-y">자격과정 알아보기</a><a href="#verify" class="btn btn-ol">민간자격등록 확인</a></div>
+  </div>
+</section>
+
+<!-- TEAM : 강사진 (실제 novabarre) -->
+<section class="block soft" id="team">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Certified Instructors</span>
+      <h2>같은 기준으로 가르치는 <span class="hl">IBFA 강사진</span><span class="en">One Standard</span></h2>
+      <p class="kr">노바바레 강사진은 대표 전미나와 같은 국제바레플로우협회(IBFA) 자격과정을 거칩니다. 한 사람의 감각이 아닌, 같은 기준으로 수업합니다.</p>
+    </div>
+    <div class="team-grid">
+      <div class="tcard reveal"><div class="role">대표 · 협회장</div><h4>전미나</h4><div class="yr">경력 10년</div>
+        <ul><li>IBFA 협회장</li><li>미국 BARRE ABOVE Level 1·2</li><li>RYTK300 요가 지도자</li><li>메디 재활 필라테스 지도자</li><li>대한바레협회 지도자</li></ul></div>
+      <div class="tcard reveal d1"><div class="role">매니저</div><h4>이예주</h4><div class="yr">경력 12년</div>
+        <ul><li>IBFA LEVEL 1·2</li><li>국립공주대 현대무용 전공</li><li>대기구 필라테스 지도자 1급</li><li>운동재활요가·필라테스 지도사</li></ul></div>
+      <div class="tcard reveal d2"><div class="role">매니저</div><h4>김다인</h4><div class="yr">경력 3년</div>
+        <ul><li>IBFA LEVEL 1·2·MASTER</li><li>바레해부학·키즈바레 수료</li><li>현대무용 전공</li><li>MPA 국제기구필라테스</li></ul></div>
+      <div class="tcard reveal d3"><div class="role">강사</div><h4>조인영</h4><div class="yr">경력 8년</div>
+        <ul><li>IBFA LEVEL 1·2</li><li>성균관대 무용 전공</li><li>유아발레·바레 지도자</li><li>매트필라테스·요가 지도자</li></ul></div>
+    </div>
+    <p class="reveal" style="text-align:center;margin-top:24px;font-size:13px;color:var(--muted)">그 외 조하연 · 최아림 · 김미혜 강사, 정지문 자문위원(대전대 물리치료학 석사·근골격계) 등이 함께합니다.</p>
+  </div>
+</section>
+
+<!-- CURRICULUM : 교육과정 (문서 3페이지) -->
+<section class="block" id="curriculum">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Signature Curriculum</span>
+      <h2>정교하게 설계된 <span class="hl">IBFA 시그니처</span> 교육<span class="en">Level 1 · 2 · 3</span></h2>
+      <p class="kr">동작의 정확도와 깊이를 높이는 단계별 맞춤 커리큘럼. 속도에 치우치지 않고 정교한 근육의 쓰임과 호흡, 몰입에 집중합니다. 기초 움직임부터 인텐시브 플로우까지 바디 라인과 중심을 바르게 세우는 교육을 제공합니다.</p>
+    </div>
+    <div class="levels">
+      <div class="lvl reveal"><div class="lvl-img"><span class="tier">Level 01</span><img data-img="ball-pose" alt=""></div>
+        <div class="lvl-body"><h3>LEVEL 1</h3><p class="kr">바레의 기초 이론과 기본 동작, 정렬과 티칭의 핵심을 익히는 기초 지도자 과정.</p>
+          <div class="lvl-spec"><div><b>[확인]</b>교육시간</div><div><b>[확인]</b>일수</div><div><b>단일</b>구성</div></div></div></div>
+      <div class="lvl reveal d1"><div class="lvl-img"><span class="tier">Level 02</span><img data-img="group-smile" alt=""></div>
+        <div class="lvl-body"><h3>LEVEL 2</h3><p class="kr">음악과 시퀀스 구성, 큐잉을 바탕으로 지도 역량을 강화하는 심화 지도자 과정.</p>
+          <div class="lvl-spec"><div><b>[확인]</b>교육시간</div><div><b>[확인]</b>일수</div><div><b>단일</b>구성</div></div></div></div>
+      <div class="lvl reveal d2"><div class="lvl-img"><span class="tier y">Level 03 · Master</span><img data-img="portrait" alt=""></div>
+        <div class="lvl-body"><h3>LEVEL 3</h3><p class="kr">교육을 지도하는 마스터 과정. 강사를 넘어 후배 강사를 양성하는 교육자로 성장합니다.</p>
+          <div class="lvl-spec"><div><b>[확인]</b>교육시간</div><div><b>[확인]</b>일수</div><div><b>마스터</b>구성</div></div></div></div>
+    </div>
+    <div class="diff reveal">
+      <div class="col"><h5>기존 정형화된 바레·필라테스</h5><ul><li>정해진 동작·시퀀스를 외워서 전달</li><li>속도와 횟수 위주의 반복</li><li>강사 개인 감각에 의존</li></ul></div>
+      <div class="col us"><h5>IBFA 시그니처</h5><ul><li>정확도·깊이·몰입 중심의 설계된 수업</li><li>정교한 근육 쓰임과 호흡에 집중</li><li>같은 기준의 체계화된 커리큘럼</li></ul></div>
+    </div>
+    <div class="steps reveal">
+      <div class="step"><b>01</b><span>LV1</span></div><span class="ar">→</span>
+      <div class="step"><b>02</b><span>LV2</span></div><span class="ar">→</span>
+      <div class="step"><b>03</b><span>LV3</span></div><span class="ar">→</span>
+      <div class="step on"><b>M</b><span>마스터</span></div>
+    </div>
+    <div class="btnrow reveal" style="justify-content:center"><a href="#contact" class="btn btn-y">교육과정 문의하기</a><a href="#" class="btn btn-ol">일정 확인하기</a></div>
+  </div>
+</section>
+
+<!-- CERTIFICATION dark : 자격과정 (문서 4페이지) -->
+<section class="block dark cert" id="certification">
+  <div class="wrap">
+    <div class="split">
+      <div class="cert-img reveal"><img data-img="ball-pose" alt="IBFA-PIC"><div class="tagy">IBFA · PIC</div></div>
+      <div class="reveal d1">
+        <span class="eyebrow" style="color:#fff">Instructor Certification · PIC</span>
+        <h2>IBFA-PIC 바레 전문 지도자 과정</h2>
+        <p class="lead kr"><b>소수 정예 밀착 케어</b>, 검증된 자격증 발급과 강사 활동 지원까지. 이론 교육부터 실기 연습, 수업 디렉팅까지 전문 강사로서 갖춰야 할 모든 것을 완성합니다. <b>LEVEL 1 + LEVEL 2 동시 발급</b>으로 현장에 바로 투입될 수 있는 실전형 인스트럭터를 양성하며, LEVEL 3은 교육을 지도하는 마스터 과정입니다.</p>
+        <div class="pricebox">
+          <div class="price"><div class="t"><span>Level 1 + 2 통합</span>바레전문지도자 통합과정</div><div class="v">1,990,000<small> 원 (부가세 포함)</small></div></div>
+          <div class="price"><div class="t"><span>Master</span>바레전문지도자 마스터</div><div class="v">1,000,000<small> 원</small></div></div>
+        </div>
+        <div class="perks">
+          <div class="perk"><div class="pi">01</div><h5>연습실 지원</h5><p>수강생 전용 연습실(신성점 등)</p></div>
+          <div class="perk"><div class="pi">02</div><h5>무료 수강권</h5><p>직영 스튜디오 수강권</p></div>
+          <div class="perk"><div class="pi">03</div><h5>채용 연계</h5><p>공식 스튜디오 활동 연계</p></div>
+        </div>
+        <div class="btnrow">
+          <a href="#contact" class="btn btn-y">지도자 과정 상담 신청</a>
+          <a href="#contact" class="btn btn-ol" style="color:#fff;border-color:rgba(255,255,255,.5)">얼리버드 혜택 신청</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STUDIOS : 스튜디오 (문서 7페이지 · 실제 정보) -->
+<section class="block" id="studios">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">IBFA Official Studio</span>
+      <h2>IBFA 공식 스튜디오 <span class="hl">NOVA BARRE</span><span class="en">Novabarre</span></h2>
+      <p class="kr">움직임에 완벽히 몰입할 수 있도록 설계된 최고급 바레 전문 공간. 국제바레플로우협회 지도자 과정 및 정규 레슨이 진행되는 공식 스튜디오입니다. 인체공학적 고정바와 전문 소도구, 쾌적한 환경 속에서 가장 바르고 깊이 있는 움직임을 경험하세요.</p>
+    </div>
+    <div class="stcards">
+      <div class="stcard reveal"><div class="im"><img data-img="group-smile" alt="관평점"></div>
+        <div class="bd"><div class="loc">Daejeon · Gwanpyeong (본점)</div><h4>노바바레 관평점</h4>
+          <div class="d"><b>주소</b><span>대전 유성구 테크노중앙로 50, 디티비안-에스 A202호</span><b>전화</b><span>010-7317-3636</span><b>운영</b><span>월–금 10:00–22:00 · 토 09:00–13:00 (일·공휴일 휴무)</span></div>
+          <p class="note">상가 지하 4층까지 무료주차. 여자 탈의실만 있어 운동복 착장 후 방문 권장.</p></div></div>
+      <div class="stcard reveal d1"><div class="im"><img data-img="portrait" alt="신성점"></div>
+        <div class="bd"><div class="loc">Daejeon · Sinseong</div><h4>노바바레 신성점</h4>
+          <div class="d"><b>주소</b><span>대전 유성구 신성로 58, 2층</span><b>전화</b><span>010-7317-3636</span><b>운영</b><span>월–금 10:00–22:00 (주말·공휴일 휴무)</span></div>
+          <p class="note">남녀 탈의실 구비, 공용 주차장 이용. 지도자 과정 수강생 전용 연습실 지원. 리포머·캐딜락·체어 1:1 기구필라테스도 운영.</p></div></div>
+    </div>
+    <div class="progs reveal">
+      <span><b>Signature</b>슬로우바레</span><span><b>Conditioning</b>리셋바레</span><span><b>Cardio</b>스웻앤번</span><span><b>Sculpt</b>스컬프트</span><span><b>Wellness</b>힐링바레</span>
+    </div>
+    <div class="btnrow reveal" style="justify-content:center"><a href="#" class="btn btn-y">스튜디오 시설 보기</a><a href="#contact" class="btn btn-ol">센터 위치 확인하기</a></div>
+  </div>
+</section>
+
+<!-- PARTNERS & NEWS : (문서 5페이지 · 중국 광저우 실제) -->
+<section class="block soft" id="partners">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Global Network & News</span>
+      <h2>IBFA <span class="hl">글로벌 네트워크</span> & 소식<span class="en">Partners & News</span></h2>
+      <p class="kr">국내외 제휴 스튜디오와 함께 바레의 가치를 펼쳐나갑니다. 채용 연계·공간 공유는 물론 해외 바레 협회와의 교류로 지속 가능한 강사 네트워크를 구축합니다.</p>
+    </div>
+    <div class="pmarquee reveal"><div class="pmarquee-track">
+      <span>NOVA BARRE</span><span>· GUANGZHOU CENTER ·</span><span>CHINA NETWORK</span><span>· GLOBAL ·</span><span>NOVA BARRE</span><span>· GUANGZHOU CENTER ·</span><span>CHINA NETWORK</span><span>· GLOBAL ·</span>
+    </div></div>
+    <div class="pgrid">
+      <div class="partner-card reveal">
+        <div class="flag">Global Partner · China</div>
+        <h4>중국 광저우 센터</h4>
+        <div class="en">China Training & Education Center (Guangzhou)</div>
+        <p class="kr">국제 표준 커리큘럼을 바탕으로 전문 강사를 양성하는 공식 글로벌 교육 협력 거점입니다. Authorized Global Partner for Professional Barre & Fitness Instructor Certification. 중국 협력기관 전용 확인 게시판(中文 조회)을 함께 운영합니다.</p>
+        <div class="btnrow"><a href="#contact" class="btn btn-y">파트너 제휴 문의</a></div>
+      </div>
+      <div class="news-list reveal d1">
+        <div class="nitem"><span class="cat">공지</span><span class="tt">[샘플] IBFA 지도자 과정 신규 기수 모집 안내</span><span class="dt">2026.10</span></div>
+        <div class="nitem"><span class="cat">교육일정</span><span class="tt">[샘플] LEVEL 1·2 패키지 교육 일정 공개</span><span class="dt">2026.10</span></div>
+        <div class="nitem"><span class="cat">세미나</span><span class="tt">[샘플] 글로벌 바레 네트워크 세미나 개최</span><span class="dt">2026.09</span></div>
+        <div class="nitem"><span class="cat">합격자</span><span class="tt">[샘플] IBFA-PIC 마스터 과정 합격자 발표</span><span class="dt">2026.09</span></div>
+      </div>
+    </div>
+    <div class="btnrow reveal" style="justify-content:center;margin-top:30px"><a href="#" class="btn btn-ol">협회 공지사항 확인</a></div>
+  </div>
+</section>
+
+<!-- VERIFY : 자격증 조회 (문서 8페이지 · 실제 필드) -->
+<section class="block" id="verify">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Certified Instructor Verification</span>
+      <h2>IBFA <span class="hl">공식 인증 강사</span> 조회<span class="en">Verification</span></h2>
+      <p class="kr">국제바레플로우협회가 공식 인증 강사임을 증명합니다. 본 조회 시스템은 IBFA 정규 지도자 과정을 이수하고 엄격한 자격 심사를 통과한 공식 인증 인스트럭터임을 보증합니다. 바른 체형 정렬과 정교한 플로우를 전달하는 검증된 지도자를 확인하세요.</p>
+    </div>
+    <div class="verify-wrap reveal d1">
+      <div class="vgrid">
+        <div><label>국적 Nationality</label><select><option>전체</option><option>대한민국</option><option>中国</option></select></div>
+        <div><label>레벨 Level</label><select><option>전체</option><option>LEVEL 1</option><option>LEVEL 2</option><option>LEVEL 3</option></select></div>
+        <div><label>연도 Year</label><select><option>전체</option><option>2026</option></select></div>
+        <div><label>월 Month</label><select><option>전체</option><option>04</option><option>08</option><option>09</option></select></div>
+        <div><label>이름 Name</label><input placeholder="홍길동"></div>
+        <div><label>자격번호 No.</label><input placeholder="IBFA-2026-0000"></div>
+      </div>
+      <div class="vgrid r2"><div></div><div></div><button class="btn btn-y" style="height:46px">자격증 조회하기</button></div>
+      <p class="vi-note">· 자격증 번호로 조회하기 / 강사 자격 조회하기 &nbsp;|&nbsp; 한국 민간자격 등록 정보·발급 기준 안내 &nbsp;|&nbsp; 中文 전용 조회 /zh/verify &nbsp;|&nbsp; <span class="conf">[확인 필요: 자격번호 체계]</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- QUALIFICATION -->
+<section class="block soft" style="padding-bottom:0">
+  <div class="wrap">
+    <div class="qnotice reveal">
+      <h4>민간자격 표시 정보 (자격기본법 제33조)</h4>
+      <div class="qrow"><div class="qk">자격의 종류</div><div><span class="conf">[확인 필요: 자격명 · 등급 · 등록민간자격 여부]</span></div></div>
+      <div class="qrow"><div class="qk">등록(공인) 번호</div><div><span class="conf">[확인 필요: 등록번호]</span></div></div>
+      <div class="qrow"><div class="qk">자격 관리·운영기관</div><div>국제바레플로우협회(IBFA) · 협회장 전미나 · 대전 유성구 테크노중앙로 50 · 010-3990-2388</div></div>
+      <div class="qrow"><div class="qk">자격 취득 총비용</div><div>Level 1·2 통합과정 1,990,000원(부가세 포함) / Master 1,000,000원 <span class="conf">[교재비·응시료·보수교육비·환불 규정 확인 필요]</span></div></div>
+      <p class="foot">※ 등록번호 등 미확정 항목은 고객 자료 수령 후 정확한 값으로 교체됩니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT : 오시는 길 & 문의 (문서 6페이지 · 실제 정보) -->
+<section class="block soft contact" id="contact" style="padding-top:clamp(50px,7vw,80px)">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Location & Contact</span>
+      <h2>IBFA 교육 센터 <span class="hl">오시는 길</span><span class="en">Contact</span></h2>
+      <p class="kr">바레 교육과 자격증 과정에 대해 궁금하신 점을 편하게 문의하세요. 전화·카카오톡 채널 문의 시 상세히 안내해 드리며, 네이버 예약으로 방문 상담도 가능합니다.</p>
+    </div>
+    <div class="split">
+      <div class="cinfo reveal">
+        <div class="row"><div class="k">본점</div><div>대전 유성구 테크노중앙로 50, 디티비안-에스 A202호 (관평점)</div></div>
+        <div class="row"><div class="k">신성점</div><div>대전 유성구 신성로 58, 2층</div></div>
+        <div class="row"><div class="k">전화</div><div>010-3990-2388 (자격과정) · 010-7317-3636 (스튜디오)</div></div>
+        <div class="row"><div class="k">운영</div><div>월–금 10:00–22:00 · 토 09:00–13:00 (관평점) / 일·공휴일 휴무</div></div>
+        <div class="hero-cta" style="margin-top:24px">
+          <a href="#" class="btn btn-dark">네이버 지도 보기</a>
+          <a href="https://pf.kakao.com/_EhNHn/chat" class="btn btn-ol">카카오톡 1:1 상담</a>
+          <a href="https://booking.naver.com/booking/6/bizes/1542567" class="btn btn-ol">네이버 예약 신청</a>
+        </div>
+      </div>
+      <div class="cform reveal d1">
+        <h4 class="disp" style="font-size:22px;font-weight:600">빠른 문의</h4>
+        <label>이름</label><input placeholder="성함">
+        <label>연락처</label><input placeholder="010-0000-0000">
+        <label>관심 과정</label><select><option>LEVEL 1</option><option>LEVEL 2</option><option>LEVEL 3</option><option>PIC 지도자 과정</option><option>파트너 제휴</option><option>기타</option></select>
+        <label>문의 내용</label><textarea placeholder="문의하실 내용을 적어주세요."></textarea>
+        <div class="chk"><input type="checkbox" style="width:auto"> 개인정보 수집·이용에 동의합니다.</div>
+        <button class="btn btn-y" style="width:100%;margin-top:18px">문의 보내기</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fgrid">
+      <div><div class="flogo">IBFA<small>INTERNATIONAL BARRE FLOW ASSOCIATION</small></div>
+        <p style="margin-top:16px;font-size:13px;max-width:300px" class="kr">한국의 바레 자격증 과정을 운영하는 국제바레플로우협회. 협회장 전미나. Barre Redefined — Precision, Depth, & Flow.</p></div>
+      <div class="fcol"><h5>Menu</h5><a href="#about">협회 소개</a><a href="#team">강사진</a><a href="#curriculum">교육과정</a><a href="#certification">자격과정</a></div>
+      <div class="fcol"><h5>Service</h5><a href="#studios">스튜디오</a><a href="#partners">파트너·소식</a><a href="#verify">자격증 조회</a><a href="#contact">오시는 길</a></div>
+      <div class="fcol"><h5>Contact</h5><a href="tel:01039902388">010-3990-2388</a><a href="https://booking.naver.com/booking/6/bizes/1542567">네이버 예약</a><a href="https://pf.kakao.com/_EhNHn/chat">카카오톡 채널</a></div>
+    </div>
+    <div class="fbiz">기관명: 국제바레플로우협회(IBFA) · 협회장/담당: 전미나 · 공식 스튜디오: 노바바레 관평점·신성점 (대전 유성구)<br>
+      <span class="conf-inline">[확인 필요: 사업자등록번호 · 민간자격 등록번호 · 이메일 · 통신판매업신고 · 이용약관 · 개인정보처리방침]</span><br>
+      © 2026 IBFA. 본 페이지는 브마드가 제작한 <b>디자인 예시(C안)</b>입니다. 정보 일부는 노바바레 홈페이지(novabarre.kr)를 참고했습니다.</div>
+  </div>
+</footer>
+
+<div class="ctabar" id="ctabar">
+  <a href="tel:01039902388">☎ 전화 문의</a>
+  <a href="https://booking.naver.com/booking/6/bizes/1542567" class="y">네이버 예약</a>
+  <a href="https://pf.kakao.com/_EhNHn/chat" class="kakao">카카오톡</a>
+</div>
+
+<script>
+document.querySelectorAll('[data-img]').forEach(e=>{e.src=(window.IMG&&window.IMG[e.dataset.img])||('images/'+e.dataset.img+'.jpg');});
+const hdr=document.getElementById('hdr'),bar=document.getElementById('ctabar');
+addEventListener('scroll',()=>{hdr.classList.toggle('scrolled',scrollY>40);bar.classList.toggle('show',scrollY>320);});
+const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');e.target.querySelectorAll('.hl').forEach(h=>h.classList.add('lit'));io.unobserve(e.target);}}),{threshold:.14});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
